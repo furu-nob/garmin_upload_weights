@@ -70,20 +70,22 @@ for index, row in df.iterrows():
     try:
         date_obj = datetime.datetime.strptime(row[date_col], "%Y/%m/%d")
         weight = float(row[weight_col])
+        date_str = date_obj.strftime("%Y-%m-%d")
         timestamp = int(date_obj.timestamp() * 1000)
     except Exception as e:
         print(f"データ変換エラー（{row}）: {e}")
         continue
 
     try:
-        client.upload_body_composition(
+        client.add_body_composition(
             weight=weight,
             percent_fat=None,
             percent_hydration=None,
             bone_mass=None,
             muscle_mass=None,
             bmi=None,
-            timestamp=timestamp
+            timestamp=timestamp,
+            calendarDate=date_str
         )
         print(f"{date_obj.date()} - {weight}kg をアップロードしました")
     except Exception as e:
