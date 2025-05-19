@@ -4,21 +4,4 @@
 pip install garminconnect python-dotenv pandas  
 python upload_weights.py helpla_export.csv
 
-このコード（ChatGPTに作ってもらった）試したけど認証でNG→トークンベース認証にするべきだと思う。
-こんなの
-```python
-from garminconnect import (
-    Garmin,
-    GarminConnectConnectionError,
-    GarminConnectTooManyRequestsError,
-    GarminConnectAuthenticationError,
-)
-
-try:
-    # まずトークンファイルを使ってログイン（キャッシュされてるならこれでOK）
-    client = Garmin()
-except FileNotFoundError:
-    # トークンファイルがない場合は新しくログインして作成
-    client = Garmin(email, password)
-    client.login()  # これで ~/.garminconnect にトークンが保存される
-```
+トークンベース認証はできていないと思う
